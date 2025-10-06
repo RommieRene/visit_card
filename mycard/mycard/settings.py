@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-50mz&8c#73^(*a9i=777^m#**c3-@8wn$y^$iyy^jfls4t@&w1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['visit.codritive.com']
 
 
 # Application definition
@@ -117,6 +117,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/'static'
+STATIC_ROOT = BASE_DIR/'staticfiles'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR/'media'
 
