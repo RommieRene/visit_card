@@ -1,4 +1,4 @@
-# MyCard 💳
+# MyCard 
 
 MyCard is a Django web app that displays an elegant personal digital business card with animated background triangles and glass-style effects.
 
