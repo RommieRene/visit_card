@@ -1,28 +1,111 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rene Giragosyan | Codritive</title>
+  <title>Codritive</title>
   <style>
-    body {
+    /* Full-page setup */
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
       font-family: 'Poppins', sans-serif;
+      overflow: hidden;
       background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
       color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
       text-align: center;
+      position: relative;
     }
+
+    /* Triangles container */
+   .triangle-bg {
+        position: fixed; /* cover the viewport */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0; /* below content but above background */
+        pointer-events: none;
+    }
+
+
+    /* Base triangle style */
+    .triangle {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        animation: rotate 10s linear infinite;
+    }
+
+    /* Individual triangles */
+    .triangle1 { 
+        background: #33C0CB ;
+        top: 20%;
+        left: 50%;
+        animation-duration: 12s; 
+        }
+    .triangle2 {
+        background: #7ED956;
+        top: 50%; 
+        left: 70%; 
+        animation-duration: 15s; 
+        }
+    .triangle3 {
+        background: #FD7400;
+        top: 15%;
+        left: 25%;
+        animation-duration: 20s;
+        }
+        
+    .triangle:hover {
+        animation: rotate-move 12s linear infinite;
+        }
+    /* Rotate animation */
+    
+    @keyframes rotate {
+            0% {
+            transform: rotate(0deg) translate(0, 0);
+        }
+        25% {
+            transform: rotate(90deg) translate(50px, -30px);
+        }
+        50% {
+            transform: rotate(180deg) translate(-40px, 50px);
+        }
+        75% {
+            transform: rotate(270deg) translate(30px, -50px);
+        }
+        100% {
+            transform: rotate(360deg) translate(0, 0);
+        }
+    }
+
+    /* Rotate + move keyframes */
+    @keyframes rotate-move {
+        0% { transform: rotate(0deg) translate(0, 0); }
+        25% { transform: rotate(90deg) translate(50px, -30px); }
+        50% { transform: rotate(180deg) translate(-40px, 50px); }
+        75% { transform: rotate(270deg) translate(30px, -50px); }
+        100% { transform: rotate(360deg) translate(0, 0); }
+    }
+
+    /* Card content */
     img {
-      width: 120px;
+      width: 250px;
       height: 120px;
       border-radius: 50%;
-      border: 2px solid #00bfa6;
       margin-bottom: 15px;
+      margin-left: 55px;
     }
+
     a {
       display: inline-block;
       margin: 10px;
@@ -30,17 +113,82 @@
       text-decoration: none;
       font-weight: 500;
     }
+    .glass-card {
+        position: absolute;
+        z-index: 1; /* above triangles */
+        background: rgba(253, 253, 253, 0.096);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(50px);
+        border-radius: 40px;
+        padding: 20px 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
   </style>
 </head>
+{% block content %}
 <body>
-  <img src="your-photo.jpg" alt="Rene Giragosyan">
-  <h1>Rene Giragosyan</h1>
-  <h3>Founder @ Codritive</h3>
-  <p>Building tech education and IT solutions for the next generation.</p>
-  <div>
-    <a href="https://codritive.com">🌐 Website</a>
-    <a href="https://linkedin.com/in/...">💼 LinkedIn</a>
-    <a href="mailto:rene@codritive.com">📩 Email</a>
-  </div>
+    <section class="glass-card">
+        {% if card.logo %}
+        <img src="{{ card.logo.url }}" alt="Logo" style=" border-radius:1%;">
+        {% endif %}
+        <p>{{ card.description|linebreaksbr }}</p>
+           <div>
+               <div class="social-links">
+                   <section>
+                   <a href="https://www.instagram.com/codritive/" target="_blank" aria-label="Instagram">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                           <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                           <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    
+                    <a href="https://www.facebook.com/profile.php?id=61578668529901" target="_blank" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                        
+                    </a>
+                    <a href="https://www.linkedin.com/company/codritive" target="_blank" class="icon linkedin">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none">
+                            <path fill="#0A66C2" d="M22.23 0H1.77C.79 0 0 .78 0 1.74v20.52C0 23.21.79 24 1.77 24h20.46C23.21 24 24 23.21 24 22.26V1.74C24 .78 23.21 0 22.23 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29z"/>
+                        </svg>
+                        
+                    </a>
+                </section> <!-- Main content -->
+                <section>
+                    <a href="https://mail.google.com/mail/u/0/#inbox" class="icon email">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none">
+                            <path fill="#0078D4" d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8l8 5 8-5v10H4z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.codritive.com/" target="_blank" class="icon website" aria-label="Website">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15 15 0 0 1 0 20"></path>
+                            <path d="M12 2a15 15 0 0 0 0 20"></path>
+                        </svg>
+                    </a>
+                    <a href="https://t.me/YourUsername" target="_blank" aria-label="Telegram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 240 240" fill="none">
+                            <circle cx="120" cy="120" r="120" fill="#0088CC"/>
+                            <path d="M50 120l130-50-30 130 30-130-130 50z" fill="white"/>
+                        </svg>
+                    </a>
+                </section>
+            </div>
+            <p>{{ card.title|linebreaksbr }}</p>
+            <h3>{{ card.name }}</h3>
+        </div>
+    </section>
+    <div class="triangle-bg">
+        <div class="triangle triangle1"></div>
+        <div class="triangle triangle2"></div>
+        <div class="triangle triangle3"></div>
+    </div>
 </body>
+{% endblock %}
 </html>

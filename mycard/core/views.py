@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from .models import VisitCard
 
-# Create your views here.
+def home(request):
+    card = VisitCard.objects.first()  # or filter by user if needed
+    return render(request, 'core/index.html', {
+        'card': card
+        })
+
